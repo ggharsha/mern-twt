@@ -6,6 +6,7 @@ const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const User = require("./models/User");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 mongoose
     .connect(db, { useNewUrlParser: true })
@@ -30,6 +31,8 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 const port = process.env.PORT || 8000;
 

@@ -42,7 +42,8 @@ router.post('/',
             user: req.user.id
         });
 
-        newTweet.save().then(tweet => res.json(tweet));
+        newTweet.save()
+        .then(tweet => res.json(tweet));
     }
 );
 
