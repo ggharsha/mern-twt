@@ -1,7 +1,7 @@
 const validator = require("validator");
 const validText = require("./valid_text");
 
-module.exports = function valideRegisterInput() {
+module.exports = function validateRegisterInput(data) {
     let errors = {};
 
     data.handle = validText(data.handle) ? data.handle : '';
