@@ -60,7 +60,6 @@ router.post('/login', (req, res) => {
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if (isMatch) {
-                // res.json({ msg: "Success!" });
                 const payload = {
                     id: user.id,
                     handle: user.handle,
