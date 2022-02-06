@@ -11,7 +11,7 @@ router.post("/register", (req, res) => {
     User.findOne({ email: req.body.email })
     .then(user => {
         if (user) {
-            return res.status(400).json({email: "A user is already registered with that email"})
+            return res.status(400).json({ email: "A user is already registered with that email." })
         } else {
             const newUser = new User({
                 handle: req.body.handle,
@@ -28,10 +28,28 @@ router.post("/register", (req, res) => {
                     .catch(err => console.log(err));
                 })
             })
-            // newUser.save() // testing
-            // .then(user => { res.send(user) }) // testing
-            // .catch(err => res.send(err)); // testing
         }
+    })
+})
+
+router.post('/login', (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({ email })
+    .then(user => {
+        if (!user) {
+            return res.status(404).json({ email: "This user does not exist" });
+        }
+
+        bcrypt.compare(password, user.password)
+        .then(isMatch => {
+            if (isMatch) {
+                res.json({ msg: "Success!" });
+            } else {
+                return res.status(400).json({ password: "The password was incorrect." });
+            }
+        })
     })
 })
 
